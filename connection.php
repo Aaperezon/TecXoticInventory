@@ -1,5 +1,7 @@
 <?php
-$server = "http://127.0.0.1:81";
+$server = "http://localhost:81/TecXoticInventory";
+$server = "http://localhost:81/TecXoticInventory";
+
 function Post($route, $data){
     global $server;
     $metodo = "POST"; 

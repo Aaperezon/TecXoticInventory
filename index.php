@@ -4,13 +4,16 @@ $usuario = $contraseña ="";
 session_start();
 $message = "";
     if($_SERVER["REQUEST_METHOD"] == "GET"){
-        $result = json_decode(Get("services/readusuario.php",[]), '');
-        echo "<script> console.log(".$result['usuario'].")</script>";
         echo("<script> console.log('HOla')</script>");
+        $data = [];
+        $result = json_decode(Get("services/readusuario.php",$data), true);
+        // print_r($result[0][0]);
+        for($i = 0; $i < 8;$i++){
+            echo "<script> console.log(".$result[0][$i].")</script>";
+        }
 
 
     }
-    echo("<script> console.log('HOla')</script>");
 ?>
 
 <!doctype html>
@@ -51,7 +54,7 @@ $message = "";
 
 
                         <p style="color:#FF0000"><?php echo $message ?></p>
-                        <button class="btn btn-primary" type="submit">Entrar</button>
+                        <input type="submit" class="btn btn-primary" value="entrar">
                         <button href="index.php" class="btn btn-default">Cancelar</button>
                     </form>
 

@@ -1,3 +1,22 @@
+<?php
+include "./connection.php";
+$usuario = "";
+session_start();
+$message = "";
+    if($_SERVER["REQUEST_METHOD"] == "GET"){
+        echo("<script> console.log('Hola')</script>");
+        $data = [];
+        $result = json_decode(Get("services/readusuario.php",$data), true);
+        // print_r($result[0][0]);
+        // for($i = 0; $i < 8;$i++){
+        $usuario = $result[0][4];
+        // echo "<script> console.log(".$usuario.")</script>";
+        // }
+
+
+    }
+?>
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -20,10 +39,31 @@
             <div class="col">
                 <div class="form-signin bg-light">
                     <img class="mb-3" src="img/Logo Tecxotic Azul.png" alt="" width="72">
-                    <h1 class="h3 mb-4 fw-normal">Bienvenido @USUARIO</h1>
+                    <h1 class="h3 mb-4 fw-normal">Bienvenido <b><?php echo $usuario ?></b></h1>
+
+                    <?php
+                        $area = "";
+
+                        if($_SERVER["REQUEST_METHOD"] == "GET"){
+                            echo("<script> console.log('Hola')</script>");
+                            $data = [];
+                            $result = json_decode(Get("services/readcategoria.php",$data), true);
+                            // print_r($result[0][0]);
+                            // TODO: Identificar cuantos registros hay en la tabla
+                            for($i = 0; $i < 2;$i++){
+                                $categoria = $result[$i][2];
+                                echo "<a class='mb-3 w-100 btn btn-lg btn-dark' href='listado.php'>$categoria</a>";
+                            }
+                            // echo "<script> console.log(".$usuario.")</script>";
+                            // }
+                            
+                            
+                        }
+                        
+                        ?>
             
-                    <a class="mt-3 mb-5 w-100 btn btn-lg btn-dark" href="listado.php">Herramientas</a>
-                    <a class="mt-5 mb-5 w-100 btn btn-lg btn-dark" href="listado.php">Materiales</a>
+                    <!-- <a class="mt-3 mb-5 w-100 btn btn-lg btn-dark" href="listado.php">Herramientas</a>
+                    <a class="mt-5 mb-5 w-100 btn btn-lg btn-dark" href="listado.php">Materiales</a> -->
                 </div>
             </div>
             <p class="mt-5 text-muted">&copy; 2021</p>

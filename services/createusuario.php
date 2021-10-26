@@ -1,11 +1,11 @@
 <?php 
-    require "Connection.php";
+    require "connection.php";
     $bindings = [];
     $result=null;
     if($pdo!=null){
         error_log("Connection is not null");
 
-        $parameters = ['area'];
+        $parameters = ['area', 'tipo', 'usuario', 'password', 'nombre', 'apellidos'];
 
         for($i = 0; $i < sizeof($parameters); $i++){
             if(!isset($_GET[$parameters[$i]])){
@@ -17,8 +17,8 @@
             }
         }
         if($result==null){
-            $sql = 'INSERT INTO working_area( time, area) VALUES 
-                (CURRENT_TIMESTAMP,?)';
+            $sql = 'INSERT INTO usuario( time, area, tipo, usuario, password, nombre, apellidos) VALUES 
+                (CURRENT_TIMESTAMP,?,?,?,?,?,?)';
                 
             $stmt = $pdo->prepare($sql);
             if($stmt->execute($bindings)){

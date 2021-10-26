@@ -1,5 +1,5 @@
 <?php 
-    require "Connection.php";
+    require "connection.php";
     $result=null;
     if($pdo!=null){
         error_log("Connection is not null");
@@ -15,7 +15,7 @@
             }
         }
         $parameters = implode(",", $parameters);
-        $sql = "UPDATE user_type SET ". $parameters . " WHERE id=". $idVal;
+        $sql = "UPDATE tipo SET ". $parameters . " WHERE id=". $idVal;
         $stmt = $pdo->prepare($sql);
         if($stmt->execute()){
             $result = "Update Success";

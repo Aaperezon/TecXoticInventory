@@ -1,5 +1,5 @@
 <?php 
-    require "Connection.php";
+    require "connection.php";
     $result=null;
     if($pdo!=null){
         error_log("Connection is not null");
@@ -15,7 +15,7 @@
             }
         }
         $parameters = implode(",", $parameters);
-        $sql = "UPDATE working_area SET ". $parameters . " WHERE id=". $idVal;
+        $sql = "UPDATE color SET ". $parameters . " WHERE id=". $idVal;
         $stmt = $pdo->prepare($sql);
         if($stmt->execute()){
             $result = "Update Success";

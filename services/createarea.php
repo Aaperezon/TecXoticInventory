@@ -1,11 +1,11 @@
 <?php 
-    require "Connection.php";
+    require "connection.php";
     $bindings = [];
     $result=null;
     if($pdo!=null){
         error_log("Connection is not null");
 
-        $parameters = ['color'];
+        $parameters = ['area'];
 
         for($i = 0; $i < sizeof($parameters); $i++){
             if(!isset($_GET[$parameters[$i]])){
@@ -17,7 +17,7 @@
             }
         }
         if($result==null){
-            $sql = 'INSERT INTO object_color( time, color) VALUES 
+            $sql = 'INSERT INTO area( time, area) VALUES 
                 (CURRENT_TIMESTAMP,?)';
                 
             $stmt = $pdo->prepare($sql);

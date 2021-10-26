@@ -4,16 +4,23 @@ $usuario = $contraseña ="";
 session_start();
 $message = "";
     if($_SERVER["REQUEST_METHOD"] == "GET"){
-        $result = json_decode(Get("ReadSubprocess",[]), true);
-
+        $result = json_decode(Get("services/readusuario.php",[]), '');
+        echo "<script> console.log(".$result['usuario'].")</script>";
+        echo("<script> console.log('HOla')</script>");
 
 
     }
+    echo("<script> console.log('HOla')</script>");
 ?>
 
 <!doctype html>
 <html lang="es">
 <head>
+    <!-- <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script> -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -33,40 +40,18 @@ $message = "";
         <div class="row d-flex flex-wrap align-content-end justify-content-center">
             <div class="col">
                 <div class="form-signin bg-light">
-                <!-- <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET">
-                    <div>
-                        <label for="validationDefault03">Usuario</label>
-                        <input type="text" name="usuario" class="form-control" id="validationDefault03" required value="<?php echo $usuario; ?>">
-                    </div>
-                    <br>
-                    <div>
-                        <label for="validationDefault03">Contraseña</label>
-                        <input type="password" name="contraseña" class="form-control" id="validationDefault03" required value="">
-                    </div>
-                    <br>
-
-                    <br><br>
-                    <p style="color:#FF0000"><?php echo $message ?></p>
-                    <br>
-                    <input type="submit" class="btn btn-primary" value="Entrar">
-                    <a href="index.php" class="btn btn-default">Cancelar</a>
-                </form> -->
-
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET">
                         <img class="mb-4" src="img/Logo Tecxotic Azul.png" alt="" width="72">
                         <h1 class="h3 mb-3 fw-normal">Inicio de sesi&oacute;n</h1>
             
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="validationDefault01" placeholder="A0xxxxxxx">
-                            <label for="validationDefault01">Usuario</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="password" class="form-control" id="validationDefault02" placeholder="Password">
-                            <label for="validationDefault02">Password</label>
-                        </div>
-                        <p style="color:#FF0000"><?php echo $message ?></p>
                         
-                        <input type="submit" class="btn btn-primary" value="Entrar">
+                        <input type="text" name="usuario" class="form-control" id="validationCustom01" placeholder="A0xxxxxxx" required value="<?php echo $usuario; ?>"></input>
+                        <br>
+                        <input type="password" name="contraseña" class="form-control" id="validationCustom02" placeholder="Password" required value=""></input>
+
+
+                        <p style="color:#FF0000"><?php echo $message ?></p>
+                        <button class="btn btn-primary" type="submit">Entrar</button>
                         <button href="index.php" class="btn btn-default">Cancelar</button>
                     </form>
 

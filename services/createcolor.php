@@ -1,11 +1,11 @@
 <?php 
-    require "Connection.php";
+    require "connection.php";
     $bindings = [];
     $result=null;
     if($pdo!=null){
         error_log("Connection is not null");
 
-        $parameters = ['id_user_type', 'id_working_area', 'user', 'password'];
+        $parameters = ['colo'];
 
         for($i = 0; $i < sizeof($parameters); $i++){
             if(!isset($_GET[$parameters[$i]])){
@@ -17,8 +17,8 @@
             }
         }
         if($result==null){
-            $sql = 'INSERT INTO user( time, id_user_type, id_working_area, user, password) VALUES 
-                (CURRENT_TIMESTAMP,?,?,?,?)';
+            $sql = 'INSERT INTO color( time, colo) VALUES 
+                (CURRENT_TIMESTAMP,?)';
                 
             $stmt = $pdo->prepare($sql);
             if($stmt->execute($bindings)){

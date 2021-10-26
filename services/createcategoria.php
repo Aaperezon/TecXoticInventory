@@ -1,11 +1,11 @@
 <?php 
-    require "Connection.php";
+    require "connection.php";
     $bindings = [];
     $result=null;
     if($pdo!=null){
         error_log("Connection is not null");
 
-        $parameters = ['category'];
+        $parameters = ['categoria'];
 
         for($i = 0; $i < sizeof($parameters); $i++){
             if(!isset($_GET[$parameters[$i]])){
@@ -17,7 +17,7 @@
             }
         }
         if($result==null){
-            $sql = 'INSERT INTO object_category( time, category) VALUES 
+            $sql = 'INSERT INTO categoria( time, categoria) VALUES 
                 (CURRENT_TIMESTAMP,?)';
                 
             $stmt = $pdo->prepare($sql);

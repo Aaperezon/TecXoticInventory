@@ -1,11 +1,11 @@
 <?php 
-    require "Connection.php";
+    require "connection.php";
     $bindings = [];
     $result=null;
     if($pdo!=null){
         error_log("Connection is not null");
 
-        $parameters = ['type'];
+        $parameters = ['tipo'];
 
         for($i = 0; $i < sizeof($parameters); $i++){
             if(!isset($_GET[$parameters[$i]])){
@@ -17,7 +17,7 @@
             }
         }
         if($result==null){
-            $sql = 'INSERT INTO user_type( time, type) VALUES 
+            $sql = 'INSERT INTO tipo( time, tipo) VALUES 
                 (CURRENT_TIMESTAMP,?)';
                 
             $stmt = $pdo->prepare($sql);

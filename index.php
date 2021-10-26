@@ -8,11 +8,13 @@ $message = "";
         $data = [];
         $result = json_decode(Get("services/readusuario.php",$data), true);
         // print_r($result[0][0]);
-        for($i = 0; $i < 8;$i++){
+        $profiles = json_decode(Get("services/readtipo.php",[]), true);
+        if($result[3] == $profiles[0]){
             echo "<script> console.log(".$result[0][$i].")</script>";
+
+
         }
-
-
+        echo "<script> console.log(".$result[0][$i].")</script>";
     }
 ?>
 
@@ -33,7 +35,6 @@ $message = "";
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/estilos.css">
-    
     <title>Tecxotic Inventory</title>
 </head>
 

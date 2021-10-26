@@ -1,3 +1,24 @@
+<?php
+include "./connection.php";
+$usuario = "";
+$area = "";
+session_start();
+$message = "";
+    if($_SERVER["REQUEST_METHOD"] == "GET"){
+        echo("<script> console.log('Hola')</script>");
+        $data = [];
+        $result = json_decode(Get("services/readusuario.php",$data), true);
+        // print_r($result[0][0]);
+        // for($i = 0; $i < 8;$i++){
+            $usuario = $result[0][4];
+        echo "<script> console.log(".$usuario.")</script>";
+        // }
+
+
+    }
+?>
+
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -21,12 +42,33 @@
             <div class="col">
                 <div class="form-signin bg-light">
                     <img class="mb-4" src="img/Logo Tecxotic Azul.png" alt="" width="72">
-                    <h1 class="h3 mb-3 fw-normal">Bienvenido @USUARIO</h1>
+                    <h1 class="h3 mb-3 fw-normal">Bienvenido <b><?php echo $usuario ?></b></h1>
 
-                    <a class="mb-3 w-100 btn btn-lg btn-dark" href="categoria.html">Electronica</a>
-                    <a class="mb-3 w-100 btn btn-lg btn-dark" href="categoria.html">Software</a>
+                    <?php
+                        $area = "";
+
+                        if($_SERVER["REQUEST_METHOD"] == "GET"){
+                            echo("<script> console.log('Hola')</script>");
+                            $data = [];
+                            $result = json_decode(Get("services/readarea.php",$data), true);
+                            // print_r($result[0][0]);
+                            // TODO: Identificar cuantos registros hay en la tabla
+                            for($i = 0; $i < 4;$i++){
+                                $area = $result[$i][2];
+                                echo "<a class='mb-3 w-100 btn btn-lg btn-dark' href='categoria.php'>$area</a>";
+                                // echo '<a class = mb-3 w-100 btn btn-lg btn-dark" href="categoria.html">.$result[$i][2].</a>';
+                            }
+                            // echo "<script> console.log(".$usuario.")</script>";
+                            // }
+                            
+                            
+                        }
+                        
+                        ?>
+                    <!-- <a class="mb-3 w-100 btn btn-lg btn-dark" href="categoria.html">Electronica</a>
+                    <a class="mb-3 w-100 btn btn-lg btn-dark" href="categoria.html">$result[$i][2]</a>
                     <a class="mb-3 w-100 btn btn-lg btn-dark" href="categoria.html">Manufactura</a>
-                    <a class="w-100 btn btn-lg btn-dark" href="categoria.html">Props</a>
+                    <a class="w-100 btn btn-lg btn-dark" href="categoria.html">Props</a> -->
 
                 </div>
             </div>

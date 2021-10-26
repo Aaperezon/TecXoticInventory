@@ -22,8 +22,8 @@
                     <img class="mb-3" src="img/Logo Tecxotic Azul.png" alt="" width="72">
                     <h1 class="h3 mb-4 fw-normal">Bienvenido @USUARIO</h1>
             
-                    <a class="mt-3 mb-5 w-100 btn btn-lg btn-dark" href="listado.html">Herramientas</a>
-                    <a class="mt-5 mb-5 w-100 btn btn-lg btn-dark" href="listado.html">Materiales</a>
+                    <a class="mt-3 mb-5 w-100 btn btn-lg btn-dark" href="listado.php">Herramientas</a>
+                    <a class="mt-5 mb-5 w-100 btn btn-lg btn-dark" href="listado.php">Materiales</a>
                 </div>
             </div>
             <p class="mt-5 text-muted">&copy; 2021</p>

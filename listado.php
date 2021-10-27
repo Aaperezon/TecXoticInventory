@@ -10,6 +10,23 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/switch.css">
+
+    <script>
+        // function check(id) {
+        //     if($(id).is(":checked")){
+        //         $(id).attr('disabled', true);
+        //     }
+        // }
+
+        function report(id) {
+            if($(id).not(":checked")){
+                Swal.fire('Gracias por tu reporte');
+                //Code to disable checkbox after checked
+                $(id).attr('disabled', true);
+            }
+        }
+    </script>
     
     <title>Tecxotic Inventory</title>
 </head>
@@ -22,28 +39,129 @@
                     <div>
                         <h1 class="mt-2 btn btn-lg btn-dark disabled fixedCenter">Herramientas</h1>
                     </div>
-                    
-                    <div class="container mt-5 padding">
-                        <div class="item">#1</div>
-                        <div class="item">#2</div>
-                        <div class="item">#3</div>
-                        <div class="item">#4</div>
-                        <div class="item">#5</div>
-                        <div class="item">#6</div>
-                        <div class="item">#7</div>
-                        <div class="item">#8</div>
-                        <div class="item">#9</div>
-                        <div class="item">#10</div>
-                        <div class="item">#11</div>
-                        <div class="item">#12</div>
-                        <div class="item">#13</div>
-                        <div class="item">#14</div>
-                        <div class="item">#15</div>
-                        <div class="item">#16</div>
-                        <div class="item">#17</div>
-                        <div class="item">#18</div>
-                        <div class="item">#19</div>
-                        <div class="item">#20</div>
+
+                    <!-- <br><br> -->
+
+                    <div class="container DivToScroll">
+                        <div class="row d-flex justify-content-between align-items-center item">
+                            <div class="col-2 item-Color azul"></div>
+                            <div class="col-5 ">Taladro</div>
+
+                            <!-- Rounded switch -->
+                            <label class="col-2 switch">
+                                <input type="checkbox" id="checked" onclick="check(this)">
+                                <span class="slider round"></span>
+                            </label>
+
+                            <div class="col-3 usuario">Aaron</div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-between align-items-center item">
+                            <div class="col-2 item-Color azul"></div>
+                            <div class="col-5 ">Cautin</div>
+
+                            <!-- Rounded switch -->
+                            <label class="col-2 switch">
+                                <input type="checkbox" id="checked" onclick="check(this)" checked>
+                                <span class="slider round"></span>
+                            </label>
+
+                            <div class="col-3 usuario"></div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-between align-items-center item">
+                            <div class="col-2 item-Color rojo"></div>
+                            <div class="col-5 ">Martillo</div>
+
+                            <!-- Rounded switch -->
+                            <label class="col-2 switch">
+                                <input type="checkbox" id="checked" onclick="check(this)" checked>
+                                <span class="slider round"></span>
+                            </label>
+
+                            <div class="col-3 usuario"></div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-between align-items-center item">
+                            <div class="col-2 item-Color verde"></div>
+                            <div class="col-5 ">Taladro</div>
+
+                            <!-- Rounded switch -->
+                            <label class="col-2 switch">
+                                <input type="checkbox" id="checked" onclick="check(this)" checked>
+                                <span class="slider round"></span>
+                            </label>
+
+                            <div class="col-3 usuario"></div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-between align-items-center item">
+                            <div class="col-2 item-Color azul"></div>
+                            <div class="col-5 ">Taladro</div>
+
+                            <!-- Rounded switch -->
+                            <label class="col-2 switch">
+                                <input type="checkbox" id="checked" onclick="check(this)">
+                                <span class="slider round"></span>
+                            </label>
+
+                            <div class="col-3 usuario">Dora</div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-between align-items-center item">
+                            <div class="col-2 item-Color rojo"></div>
+                            <div class="col-5 ">Segueta</div>
+
+                            <!-- Rounded switch -->
+                            <label class="col-2 switch">
+                                <input type="checkbox" id="checked" onclick="check(this)">
+                                <span class="slider round"></span>
+                            </label>
+
+                            <div class="col-3 usuario">Aaron</div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-between align-items-center item">
+                            <div class="col-2 item-Color rojo"></div>
+                            <div class="col-5 ">Martillo</div>
+
+                            <!-- Rounded switch -->
+                            <label class="col-2 switch">
+                                <input type="checkbox" id="checked" onclick="check(this)">
+                                <span class="slider round"></span>
+                            </label>
+
+                            <div class="col-3 usuario">Aaron</div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-between align-items-center item">
+                            <div class="col-2 item-Color verde"></div>
+                            <div class="col-5 ">Cautin</div>
+
+                            <!-- Rounded switch -->
+                            <label class="col-2 switch">
+                                <input type="checkbox" id="checked" onclick="check(this)">
+                                <span class="slider round"></span>
+                            </label>
+
+                            <div class="col-3 usuario">Aaron</div>
+                        </div>
+
+                        <!-- MATERIALES -->
+                        <div class="row d-flex justify-content-between align-items-center item">
+                            <div class="col-4 item-Color verde"></div>
+                            <div class="col-4 ">Cable 1</div>
+
+                            <!-- Rounded switch -->
+                            <label class="col-4 switch">
+                                <input type="checkbox" id="checked" onclick="report(this)" checked>
+                                <span class="slider round"></span>
+                            </label>
+
+                            <!-- <div class="col-3 usuario">Aaron</div> -->
+                        </div>
+                        
+                        
                     </div>
 
                 </div>
@@ -55,6 +173,8 @@
 
 
     <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous">
     </script>

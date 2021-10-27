@@ -63,19 +63,26 @@ button {
 }
 
 .DivToScroll{   
-    /* background-color: #F5F5F5;
+    /*background-color: #000;
     border: 1px solid #DDDDDD;
-    color: #3B3C3E;
+    color: #fff;
     font-size: 12px;
     font-weight: bold; */
     left: -1px;
-    padding: 10px 7px 5px; 
+    max-height: 400px;
+    overflow: auto;
+    /* padding: 100px 7px 5px;  */
+    margin-top: 70px;
 }
+.DivToScroll::-webkit-scrollbar{  
+    display: none;
+ }
 
 .DivWithScroll{
     overflow-y:scroll;
 
 }
+
 .DivWithScroll::-webkit-scrollbar{
     /* height:1px; */
     /* overflow:scroll;
@@ -108,4 +115,36 @@ button {
 
 .item{
     margin: 20px 0;
+    padding: 15px 0;
+    /* background: #ccc; */
 }
+
+/* .item-Nombre{
+    color: #fff;
+} */
+
+.item-Color{
+    border-radius: 50%;
+    position: relative;
+    min-height: 24px;
+    max-height: 24px;
+    min-width: 24px;
+    max-width: 24px;
+    left: 4px;
+}
+
+.rojo{
+    background: #F00;
+}
+
+.azul{
+    background: #00F;
+}
+
+.verde{
+    background: #0F0;
+}
+
+/* .item-Ocupado{
+
+} */

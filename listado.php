@@ -1,3 +1,19 @@
+<?php
+    include "./connection.php";
+    session_start();
+    $id_categoria = $nombre = $id_usuario = $id_area = $text_categoria = "";
+    if(isset($_SESSION['POST'])){
+        $session = $_SESSION['POST'];
+        $id_categoria = $session["id_categoria"];
+        $id_usuario = $session["id_usuario"];
+        $id_area = $session["id_area"];
+        $text_categoria = $session["text_categoria"];
+        // print_r($session);
+    }
+
+
+
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -36,130 +52,40 @@
         <div class="row d-flex flex-wrap align-content-end justify-content-center">
             <div class="col">
                 <div class="form-signin bg-light DivWithScroll">
+                 
                     <div>
-                        <h1 class="mt-2 btn btn-lg btn-dark disabled fixedCenter">Herramientas</h1>
+                        <h1 class="mt-2 btn btn-lg btn-dark disabled fixedCenter"><?php echo($text_categoria);?></h1>
                     </div>
 
-                    <!-- <br><br> -->
+
+
 
                     <div class="container DivToScroll">
-                        <div class="row d-flex justify-content-between align-items-center item">
-                            <div class="col-2 item-Color azul"></div>
-                            <div class="col-5 ">Taladro</div>
-
-                            <!-- Rounded switch -->
-                            <label class="col-2 switch">
-                                <input type="checkbox" id="checked" onclick="check(this)">
-                                <span class="slider round"></span>
-                            </label>
-
-                            <div class="col-3 usuario">Aaron</div>
-                        </div>
+                        <?php
+                    
+                            $data = [
+                                "id_area" => $id_area,
+                                "id_categoria" => $id_categoria
+                            ];
+                            $result = json_decode(Post("services/readlistado.php",$data), true);
+                            foreach ($result as $lista){
+                                // echo($lista[]);
+                                echo ("
+                                <div class='row d-flex justify-content-between align-items-center item'>
+                                    <div class='col-2 item-Color'  style='background : #$lista[2];'></div>
+                                    <div class='col-5 '>$lista[3]</div>
+        
+                                    <!-- Rounded switch -->
+                                    <label class='col-2 switch'>
+                                        <input type='checkbox'id='checked' onclick='check(this)'>
+                                        <span class='slider round'></span>
+                                    </label>
+        
+                                    <div class='col-3 usuario'>Aqui va pesona cambiar query</div>
+                                </div>");
+                            }
+                        ?>
                         
-                        <div class="row d-flex justify-content-between align-items-center item">
-                            <div class="col-2 item-Color azul"></div>
-                            <div class="col-5 ">Cautin</div>
-
-                            <!-- Rounded switch -->
-                            <label class="col-2 switch">
-                                <input type="checkbox" id="checked" onclick="check(this)" checked>
-                                <span class="slider round"></span>
-                            </label>
-
-                            <div class="col-3 usuario"></div>
-                        </div>
-                        
-                        <div class="row d-flex justify-content-between align-items-center item">
-                            <div class="col-2 item-Color rojo"></div>
-                            <div class="col-5 ">Martillo</div>
-
-                            <!-- Rounded switch -->
-                            <label class="col-2 switch">
-                                <input type="checkbox" id="checked" onclick="check(this)" checked>
-                                <span class="slider round"></span>
-                            </label>
-
-                            <div class="col-3 usuario"></div>
-                        </div>
-                        
-                        <div class="row d-flex justify-content-between align-items-center item">
-                            <div class="col-2 item-Color verde"></div>
-                            <div class="col-5 ">Taladro</div>
-
-                            <!-- Rounded switch -->
-                            <label class="col-2 switch">
-                                <input type="checkbox" id="checked" onclick="check(this)" checked>
-                                <span class="slider round"></span>
-                            </label>
-
-                            <div class="col-3 usuario"></div>
-                        </div>
-                        
-                        <div class="row d-flex justify-content-between align-items-center item">
-                            <div class="col-2 item-Color azul"></div>
-                            <div class="col-5 ">Taladro</div>
-
-                            <!-- Rounded switch -->
-                            <label class="col-2 switch">
-                                <input type="checkbox" id="checked" onclick="check(this)">
-                                <span class="slider round"></span>
-                            </label>
-
-                            <div class="col-3 usuario">Dora</div>
-                        </div>
-                        
-                        <div class="row d-flex justify-content-between align-items-center item">
-                            <div class="col-2 item-Color rojo"></div>
-                            <div class="col-5 ">Segueta</div>
-
-                            <!-- Rounded switch -->
-                            <label class="col-2 switch">
-                                <input type="checkbox" id="checked" onclick="check(this)">
-                                <span class="slider round"></span>
-                            </label>
-
-                            <div class="col-3 usuario">Aaron</div>
-                        </div>
-                        
-                        <div class="row d-flex justify-content-between align-items-center item">
-                            <div class="col-2 item-Color rojo"></div>
-                            <div class="col-5 ">Martillo</div>
-
-                            <!-- Rounded switch -->
-                            <label class="col-2 switch">
-                                <input type="checkbox" id="checked" onclick="check(this)">
-                                <span class="slider round"></span>
-                            </label>
-
-                            <div class="col-3 usuario">Aaron</div>
-                        </div>
-                        
-                        <div class="row d-flex justify-content-between align-items-center item">
-                            <div class="col-2 item-Color verde"></div>
-                            <div class="col-5 ">Cautin</div>
-
-                            <!-- Rounded switch -->
-                            <label class="col-2 switch">
-                                <input type="checkbox" id="checked" onclick="check(this)">
-                                <span class="slider round"></span>
-                            </label>
-
-                            <div class="col-3 usuario">Aaron</div>
-                        </div>
-
-                        <!-- MATERIALES -->
-                        <div class="row d-flex justify-content-between align-items-center item">
-                            <div class="col-4 item-Color verde"></div>
-                            <div class="col-4 ">Cable 1</div>
-
-                            <!-- Rounded switch -->
-                            <label class="col-4 switch">
-                                <input type="checkbox" id="checked" onclick="report(this)" checked>
-                                <span class="slider round"></span>
-                            </label>
-
-                            <!-- <div class="col-3 usuario">Aaron</div> -->
-                        </div>
                         
                         
                     </div>

@@ -4,16 +4,14 @@
     $result=null;
     if($pdo!=null){
         error_log("Connection is not null");
-
         $parameters = ['area'];
-
-        for($i = 0; $i < sizeof($parameters); $i++){
-            if(!isset($_GET[$parameters[$i]])){
-                $result = "Parameter ".$parameters[$i]." missing";
+        $received = json_decode(file_get_contents('php://input'),true);
+        foreach ($parameters as $parameter){
+            if(!isset( $received[$parameter]) ){
+                $result =  "Parameter ".$parameters[$i]." missing";
                 break;
-            }
-            else{
-                $bindings[] = $_GET[$parameters[$i]];
+            }else{
+                $bindings[] = $received[$parameter];
             }
         }
         if($result==null){

@@ -1,27 +1,42 @@
 <?php
-include "./connection.php";
-$usuario = "";
-$area = "";
-session_start();
-$message = "";
-    if($_SERVER["REQUEST_METHOD"] == "GET"){
-        echo("<script> console.log('Hola')</script>");
-        $data = [];
-        $result = json_decode(Get("services/readusuario.php",$data), true);
-        // print_r($result[0][0]);
-        // for($i = 0; $i < 8;$i++){
-            $usuario = $result[0][4];
-        echo "<script> console.log(".$usuario.")</script>";
-        // }
+    include "./connection.php";
+    session_start();
+    $nombre = $id_usuario = "";
+    $message = "";
 
+    if(isset($_SESSION['POST'])){
+        $session = $_SESSION['POST'];
+        $nombre = $session["nombre"];
+        $id_usuario = $session["id_usuario"];
+    }
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        session_start();
+        $data = [
+            "area" => trim($_POST["area"]),
+        ];
+        $_POST['nombre'] = $nombre;
+        $_POST['id_usuario'] = $id_usuario;
+        $_SESSION['POST'] = $_POST;
+
+        // print_r($_POST);
+        header("location: categoria.php");
 
     }
+    
 ?>
 
 
 <!doctype html>
 <html lang="es">
 <head>
+     
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script> 
+   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -32,7 +47,7 @@ $message = "";
     <!-- CSS -->
     <link rel="stylesheet" href="css/estilos.css">
 
-    <title>Tecxotic Inventory</title>
+    <title>Tecxotic Inventario</title>
 </head>
 
 <body class="text-center">
@@ -42,34 +57,21 @@ $message = "";
             <div class="col">
                 <div class="form-signin bg-light">
                     <img class="mb-4" src="img/Logo Tecxotic Azul.png" alt="" width="72">
-                    <h1 class="h3 mb-3 fw-normal">Bienvenido <b><?php echo $usuario ?></b></h1>
-
-                    <?php
-                        $area = "";
-
-                        if($_SERVER["REQUEST_METHOD"] == "GET"){
-                            echo("<script> console.log('Hola')</script>");
-                            $data = [];
-                            $result = json_decode(Get("services/readarea.php",$data), true);
+                    <h1 class="h3 mb-3 fw-normal">Bienvenido <b><?php echo $nombre; ?></b></h1>
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                        <?php
+                            $data = [
+                            ];
+                            $result = json_decode(Post("services/readarea.php",$data), true);
                             // print_r($result[0][0]);
-                            // TODO: Identificar cuantos registros hay en la tabla
-                            for($i = 0; $i < 4;$i++){
-                                $area = $result[$i][2];
-                                echo "<a class='mb-3 w-100 btn btn-lg btn-dark' href='categoria.php'>$area</a>";
-                                // echo '<a class = mb-3 w-100 btn btn-lg btn-dark" href="categoria.html">.$result[$i][2].</a>';
+                            foreach ($result as $area){
+                                echo "<button type='submit' class='mb-3 w-100 btn btn-lg btn-dark' name='area' value=$area[0] >$area[1]</button>";
                             }
-                            // echo "<script> console.log(".$usuario.")</script>";
-                            // }
                             
-                            
-                        }
-                        
                         ?>
-                    <!-- <a class="mb-3 w-100 btn btn-lg btn-dark" href="categoria.html">Electronica</a>
-                    <a class="mb-3 w-100 btn btn-lg btn-dark" href="categoria.html">$result[$i][2]</a>
-                    <a class="mb-3 w-100 btn btn-lg btn-dark" href="categoria.html">Manufactura</a>
-                    <a class="w-100 btn btn-lg btn-dark" href="categoria.html">Props</a> -->
+                    </form>
 
+                
                 </div>
             </div>
             <p class="mt-5 text-muted">&copy; 2021</p>

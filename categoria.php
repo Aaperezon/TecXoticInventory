@@ -1,25 +1,38 @@
 <?php
-include "./connection.php";
-$usuario = "";
-session_start();
-$message = "";
-    if($_SERVER["REQUEST_METHOD"] == "GET"){
-        echo("<script> console.log('Hola')</script>");
-        $data = [];
-        $result = json_decode(Get("services/readusuario.php",$data), true);
-        // print_r($result[0][0]);
-        // for($i = 0; $i < 8;$i++){
-        $usuario = $result[0][4];
-        // echo "<script> console.log(".$usuario.")</script>";
-        // }
+    include "./connection.php";
+    session_start();
+    $message = $nombre = $id_usuario = $id_area = "";
+    if(isset($_SESSION['POST'])){
+            $session = $_SESSION['POST'];
+            $nombre = $session["nombre"];
+            $id_usuario = $session["id_usuario"];
+            $id_area = $session["area"];
+    }
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        session_start();
+        unset($_POST['categoria']);
+        $_POST['id_categoria'] = trim($_POST["id_categoria"]);
+        $_POST['nombre'] = $nombre;
+        $_POST['id_usuario'] = $id_usuario;
+        $_POST['id_area'] = $id_area;
+        $_SESSION['POST'] = $_POST;
 
+        // print_r($_POST);
+        header("location: listado.php");
 
     }
+    
+
 ?>
 
 <!doctype html>
 <html lang="es">
 <head>
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script> 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -40,30 +53,18 @@ $message = "";
                 <div class="form-signin bg-light">
                     <img class="mb-3" src="img/Logo Tecxotic Azul.png" alt="" width="72">
                     <h1 class="h3 mb-4 fw-normal">Bienvenido <b><?php echo $usuario ?></b></h1>
-
-                    <?php
-                        $area = "";
-
-                        if($_SERVER["REQUEST_METHOD"] == "GET"){
-                            echo("<script> console.log('Hola')</script>");
-                            $data = [];
-                            $result = json_decode(Get("services/readcategoria.php",$data), true);
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                        <?php
+                            $data = [
+                            ];
+                            $result = json_decode(Post("services/readcategoria.php",$data), true);
                             // print_r($result[0][0]);
-                            // TODO: Identificar cuantos registros hay en la tabla
-                            for($i = 0; $i < 2;$i++){
-                                $categoria = $result[$i][2];
-                                echo "<a class='mb-3 w-100 btn btn-lg btn-dark' href='listado.php'>$categoria</a>";
+                            foreach ($result as $categoria){
+                                echo "<input name='text_categoria' value='$categoria[1]' hidden></input>";
+                                echo "<button type='submit' class='mb-3 w-100 btn btn-lg btn-dark' name='id_categoria' value=$categoria[0] >$categoria[1]</button>";
                             }
-                            // echo "<script> console.log(".$usuario.")</script>";
-                            // }
-                            
-                            
-                        }
-                        
                         ?>
-            
-                    <!-- <a class="mt-3 mb-5 w-100 btn btn-lg btn-dark" href="listado.php">Herramientas</a>
-                    <a class="mt-5 mb-5 w-100 btn btn-lg btn-dark" href="listado.php">Materiales</a> -->
+                    </form>
                 </div>
             </div>
             <p class="mt-5 text-muted">&copy; 2021</p>

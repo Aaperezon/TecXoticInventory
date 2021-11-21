@@ -4,27 +4,23 @@
     $result=null;
     if($pdo!=null){
         error_log("Connection is not null");
-        $parameters = ['categoria'];
+        $parameters = ['id_area','id_categoria'];
         $received = json_decode(file_get_contents('php://input'),true);
         foreach ($parameters as $parameter){
             if(!isset( $received[$parameter]) ){
-                $result =  "Parameter ".$parameters[$i]." missing";
+                $result =  "Parameter ".$parameter." missing";
                 break;
             }else{
                 $bindings[] = $received[$parameter];
             }
         }
         if($result==null){
-            $sql = 'INSERT INTO categoria( time, categoria) VALUES 
-                (CURRENT_TIMESTAMP,?)';
+            $sql = 'SELECT id_area,id_categoria,color.color,nombre FROM inventario INNER JOIN color ON inventario.id_color = color.id WHERE id_area='.$bindings[0].' and id_categoria='.$bindings[1];
                 
             $stmt = $pdo->prepare($sql);
-            if($stmt->execute($bindings)){
-                $result = "Insertion Success";
-            }
-            else{
-                $result = "Insertion Error";
-            }
+            $stmt->execute();
+            while($row = $stmt->fetch(PDO::FETCH_NUM))
+                $result[] = $row;
         }
     }
     else{

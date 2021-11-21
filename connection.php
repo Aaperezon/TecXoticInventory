@@ -1,6 +1,5 @@
 <?php
 $server = "http://localhost:81/TecXoticInventory";
-$server = "http://localhost:81/TecXoticInventory";
 
 function Post($route, $data){
     global $server;

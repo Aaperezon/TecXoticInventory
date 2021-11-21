@@ -1,31 +1,38 @@
 <?php
 include "./connection.php";
-$usuario = $contraseña ="";
+$usuario = $password = "";
 session_start();
 $message = "";
-    if($_SERVER["REQUEST_METHOD"] == "GET"){
-        echo("<script> console.log('HOla')</script>");
-        $data = [];
-        $result = json_decode(Get("services/readusuario.php",$data), true);
-        // print_r($result[0][0]);
-        $profiles = json_decode(Get("services/readtipo.php",[]), true);
-        if($result[3] == $profiles[0]){
-            echo "<script> console.log(".$result[0][$i].")</script>";
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        session_destroy();
+        $data = [
+            "area" => trim($_POST["area"]),
+            "usuario"=> trim($_POST["usuario"]),
+            "password" => trim($_POST["password"])
+        ];
+        $result = json_decode(Post("services/login.php",$data), true);
+        // print_r($result);
+        if($result != NULL){
+            session_start();
+            $_POST['id_usuario'] = $result[0]; 
+            $_POST['nombre'] = $result[1]; 
+            unset($_POST['area'],$_POST['usuario'],$_POST['password']);
+            $_SESSION['POST'] = $_POST;
+            // print_r($_POST);
+            header("location: area.php");
 
+        }else{
 
         }
-        echo "<script> console.log(".$result[0][$i].")</script>";
-    }
+       
+        
+   }
 ?>
 
 <!doctype html>
 <html lang="es">
 <head>
-    <!-- <script>
-        if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
-        }
-    </script> -->
+   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -35,7 +42,7 @@ $message = "";
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/estilos.css">
-    <title>Tecxotic Inventory</title>
+    <title>Tecxotic Inventario</title>
 </head>
 
 <body class="text-center">
@@ -44,14 +51,14 @@ $message = "";
         <div class="row d-flex flex-wrap align-content-end justify-content-center">
             <div class="col">
                 <div class="form-signin bg-light">
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                         <img class="mb-4" src="img/Logo Tecxotic Azul.png" alt="" width="72">
                         <h1 class="h3 mb-3 fw-normal">Inicio de sesi&oacute;n</h1>
             
                         
                         <input type="text" name="usuario" class="form-control" id="validationCustom01" placeholder="A0xxxxxxx" required value="<?php echo $usuario; ?>"></input>
                         <br>
-                        <input type="password" name="contraseña" class="form-control" id="validationCustom02" placeholder="Password" required value=""></input>
+                        <input type="password" name="password" class="form-control" id="validationCustom02" placeholder="Password" required value=""></input>
 
 
                         <p style="color:#FF0000"><?php echo $message ?></p>
